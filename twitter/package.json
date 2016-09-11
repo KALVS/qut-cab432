@@ -1,0 +1,24 @@
+{
+  "name": "qut-cab432-twitter",
+  "version": "1.0.0",
+  "description": "QUT CAB432 - Cloud Computing - API Mashup",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trjstewart/qut-cab432.git"
+  },
+  "author": "Tylor Stewart <trjstewart@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trjstewart/qut-cab432/issues"
+  },
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/trjstewart/qut-cab432#readme",
+  "dependencies": {
+    "mongoose": "^4.6.0",
+    "twitter": "^1.4.0"
+  }
+}
