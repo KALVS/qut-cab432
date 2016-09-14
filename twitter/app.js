@@ -20,7 +20,7 @@ const client = new Twitter({
 });
 
 // Start the Twitter Stream using the Client.
-const stream = client.stream('statuses/filter', { track: 'coffee' });
+const stream = client.stream('statuses/filter', { track: 'realDonaldTrump, DonaldTrump, Donald Trump, Trump, HillaryClinton, Hillary Clinton, Clinton' });
 
 // For each data event on the stream, add the tweet to the DB.
 stream.on('data', tweet => addTweet(tweet));
