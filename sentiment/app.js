@@ -16,37 +16,28 @@ const languageClient = language({
     keyFilename: 'CAB432-18dbd972d19d.json'
 });
 
-// Tweet.find({ sentiment: null }).exec((err, docs) => {
-//     if (err) console.log({ error: err });
-//     else docs.map((doc, index) => {
-//         languageClient.detectSentiment(doc.tweet.text, (err, sentiment) => {
-//             console.log('Analysed Tweet ' + index + ' of ' + docs.length);
-//             if (err) console.log({ tweet: doc.tweet.text, error: err.message });
-//             else {
-//                 console.log('Sentiment is ', sentiment);
-//                 doc.sentiment = sentiment;
-//                 doc.save();
-//             }
-//         });
-//     })
-// });
-
-Tweet.find({ sentiment: null }).limit(50).exec().then(docs => {
-    docs.map((doc, index) => {
-        languageClient.detectSentiment(doc.tweet.text, (err, sentiment) => {
-            console.log('Analysed Tweet ' + index + ' of ' + docs.length);
-
-            if (err) {
-                if (err.code == 400) {
-                    doc.remove();
-                    console.log('Removed Tweet ' + index);
+// This is yucky but for the life of me I can't find a nice pattern for asynchronous recursion to process more than a single tweet at a time.
+const getTweetSentiment = () => {
+    Tweet.findOne({ sentiment: null }).exec().then(doc => {
+        if (doc === null) getTweetSentiment();
+        else {
+            languageClient.detectSentiment(doc.tweet.text, (err, sentiment) => {
+                if (err) {
+                    if (err.code == 400) {
+                        doc.remove();
+                        console.log('Removed Tweet');
+                        getTweetSentiment();
+                    }
                 }
-            }
-            else {
-                console.log('Sentiment is ', sentiment);
-                doc.sentiment = sentiment;
-                doc.save();
-            }
-        });
-    })
-}).catch(error => console.log({ error }));
+                else {
+                    console.log('Sentiment is ', sentiment);
+                    doc.sentiment = sentiment;
+                    doc.save();
+                    getTweetSentiment();
+                }
+            });
+        }
+    }).catch(error => console.log({ error }));
+};
+
+getTweetSentiment();
