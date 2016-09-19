@@ -1,5 +1,5 @@
 const Twitter = require('twitter');
-const geocoder = require('geocoder');
+const geocoder = require('google-geocoder');
 const language = require('google-cloud').language;
 const path = require('path');
 
@@ -20,6 +20,9 @@ const client = new Twitter({
   access_token_key: config.twitter.access.key,
   access_token_secret: config.twitter.access.secret
 });
+
+// Create a Geocoder Client.
+var geo = geocoder(config.google);
 
 // Create a Language Client.
 const languageClient = language({
@@ -45,28 +48,31 @@ function addTweet(tweet) {
 
     // Only include the data we actually need, there is a lot of useless shit in tweet data that we don't need for this specific application.
     tweet = { id: tweet.id, text: tweet.text, location: tweet.user.location, timestamp: tweet.timestamp_ms };
-    console.log(tweet.location);
 
     // Fetch the additional location and sentiment data we need to analyse the Tweet and save it to the Database.
-    geocoder.geocode(tweet.location, (err, data) => {
-      if (err) { console.log('Geocode Error!'); return; }
-      if (data.results.length == 0) { console.log('Results are empty!', data); return; }
-      tweet.location = { lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng };
+    geo.find(tweet.location, (err, data) => {
+
+      if (err) { console.log('Oops! We have a Geocode Error!', err); return; }
+      if (data.length == 0) { console.log('Oops! Geocode results are empty!'); return; }
+      else if (data[0].country === undefined || data[0].province_state === undefined) { console.log('Oops! That tweet doesn\'t have a country or province defined!'); return; }
+      else if (data[0].country.short_name != 'US') { console.log('Oops! That tweet wasn\'t from within the US!'); return; }
+
+      tweet.location = data[0].province_state.long_name;
 
       languageClient.detectSentiment(tweet.text, (err, sentiment) => {
-        if (err) { console.log(err); return; }
+        if (err) { console.log('error1: ', err); return; }
 
         // We should probably also figure out which candidate to assign the tweet to.
         const candidate = findCandidate(tweet.text);
-        if (!candidate) return;
+        if (!candidate) { console.log('We didn\'t find a candidate!'); return; }
 
-        const t = new Tweet();
+        let t = new Tweet();
         t.tweet = tweet;
         t.sentiment = sentiment;
         t.candidate = candidate;
         t.save(function(err) {
-          if (err) console.log(err);
-          else console.log("Added tweet with ID: " + tweet.id + ' to ' + t.candidate);
+          if (err) console.log('error2: ', err);
+          else console.log('Added a Tweet to ' + t.candidate + ' in ' + t.tweet.location + ' with sentiment of ' + t.sentiment);
         });
       });
     });

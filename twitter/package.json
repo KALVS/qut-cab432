@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/trjstewart/qut-cab432#readme",
   "dependencies": {
-    "geocoder": "^0.2.2",
     "google-cloud": "^0.40.0",
+    "google-geocoder": "^0.1.4",
     "mongoose": "^4.6.0",
     "twitter": "^1.4.0"
   }
