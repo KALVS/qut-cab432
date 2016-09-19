@@ -1,5 +1,33 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  #wrapper
+    #banner
+      img(src='images/trumpVsClinton.jpg')
+  .container
+    .row
+      .col-md-12.text-center.padd
+        p Have you ever wanted to know the sentiment shown towards each of your political candidates? Wait no more!
+        p Simply hover over each of the maps to view the average sentiment towards each candidate below...
+    .row
+      .col-md-6
+        #trump
+      .col-md-6
+        #clinton
+    .row
+      .col-md-12.text-center
+        p It looks like nobody really likes either of them. Oh well...
+
+  script(type='text/javascript').
+    google.charts.load('upcoming', {'packages': ['geochart']});
+    google.charts.setOnLoadCallback(drawRegionsMap);
+    function drawRegionsMap() {
+      console.log(!{payload});
+      var options = { width: 500, height: 350, region: "US", resolution: "provinces", backgroundColor: 'none', legend: 'none' };
+
+      var dataTrump = google.visualization.arrayToDataTable(!{trump});
+      var dataClinton = google.visualization.arrayToDataTable(!{clinton});
+
+      new google.visualization.GeoChart(document.getElementById('trump')).draw(dataTrump, options);
+      new google.visualization.GeoChart(document.getElementById('clinton')).draw(dataClinton, options);
+    }

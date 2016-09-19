@@ -8,6 +8,16 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+// Application Configuration and Secrets.
+const config = require(__dirname + '/config.js');
+
+// Import, Configure and Initialize Mongoose.
+const mongoose = require('mongoose');
+const Tweet = require(__dirname + '/models/tweet.model');
+mongoose.connect(config.mongo.uri, (error) => {
+  (error) ? console.log('Database Connection Error: ' + error) : console.log('Successfully Connected to MongoLab!');
+});
+
 var app = express();
 
 // view engine setup

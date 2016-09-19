@@ -1,8 +1,32 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 2em;
+    background: #000000;
+    color: #bfbfbf;
 }
 
-a {
-  color: #00B7FF;
+#banner {
+    overflow: hidden;
+    height: 275px;
+    position: relative;
+}
+
+#banner img {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.padd {
+    padding-top: 50px;
+}
+
+#clinton {
+    float: left;
+}
+
+#clinton {
+    float: right;
 }

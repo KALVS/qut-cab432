@@ -2,6 +2,20 @@ doctype html
 html
   head
     title= title
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="https://www.google.com/jsapi")
+    script(src="https://www.gstatic.com/charts/loader.js")
+    script(src="https://code.jquery.com/jquery-3.1.0.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
   body
+    .navbar.navbar-default
+      .container
+        .navbar-header
+          a.navbar-brand(href='../') ElectMotion
+        #navbar-main.navbar-collapse.collapse(aria-expanded='false', style='height: 1px;')
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='https://github.com/trjstewart', target='_blank') Built With <i class="fa fa-heart"></i> by Tylor Stewart
     block content
