@@ -26,8 +26,8 @@ var geo = geocoder(config.google);
 
 // Create a Language Client.
 const languageClient = language({
-  projectId: 'cab432-142505',
-  keyFilename: 'CAB432-18dbd972d19d.json'
+  projectId: 'ferrous-layout-137723',
+  keyFilename: 'QUT-CAB432-11fa54834b88.json'
 });
 
 // Start the Twitter Stream using the Client.
@@ -51,13 +51,10 @@ function addTweet(tweet) {
 
     // Fetch the additional location and sentiment data we need to analyse the Tweet and save it to the Database.
     geo.find(tweet.location, (err, data) => {
-
       if (err) { console.log('Oops! We have a Geocode Error!', err); return; }
       if (data.length == 0) { console.log('Oops! Geocode results are empty!'); return; }
       else if (data[0].country === undefined || data[0].province_state === undefined) { console.log('Oops! That tweet doesn\'t have a country or province defined!'); return; }
       else if (data[0].country.short_name != 'US') { console.log('Oops! That tweet wasn\'t from within the US!'); return; }
-
-      tweet.location = data[0].province_state.long_name;
 
       languageClient.detectSentiment(tweet.text, (err, sentiment) => {
         if (err) { console.log('error1: ', err); return; }
@@ -68,6 +65,7 @@ function addTweet(tweet) {
 
         let t = new Tweet();
         t.tweet = tweet;
+        t.location = data[0].province_state.long_name;
         t.sentiment = sentiment;
         t.candidate = candidate;
         t.save(function(err) {
