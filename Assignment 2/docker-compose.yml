@@ -1,0 +1,21 @@
+twitter:
+  build: ./twitter
+  volumes:
+    - "./twitter:/src/twitter"
+  command: "nodemon -L twitter/app"
+
+server:
+  build: ./server
+  volumes:
+    - "./server:/src/server"
+  ports:
+    - "80:3000"
+  command: "nodemon -L server/bin/www"
+
+client:
+  build: ./client
+    volumes:
+      - "./client:/src/client"
+    ports:
+      - "80:3000"
+    command: "nodemon -L client/bin/www"

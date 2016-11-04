@@ -1,0 +1,10 @@
+{
+  "postgres": {
+    "username": "assignment2",
+    "password": "assignment2",
+    "database": "assignment2",
+    "host": "cab432-assignment2.cg7hlyhomeit.ap-southeast-2.rds.amazonaws.com",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
