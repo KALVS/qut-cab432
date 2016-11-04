@@ -33,5 +33,13 @@ stream.on('data', tweet => {
     }
   }
 
-  request.post('http://localhost:3000/tweet').form({ tweet: tweetText });
+  // request.post('http://localhost:3000/tweet').form({ tweet: tweetText })
+  request.post({url:'http://localhost:3000/tweet', form: { tweet: tweetText }}, function(err,httpResponse,body) {
+    if (err) console.log(err);
+  });
+});
+
+// Should probably handle errors just in case, there might be Java around.
+stream.on('error', error => {
+  console.log(error);
 });

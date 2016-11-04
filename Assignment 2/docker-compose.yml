@@ -14,8 +14,8 @@ server:
 
 client:
   build: ./client
-    volumes:
-      - "./client:/src/client"
-    ports:
-      - "80:3000"
-    command: "nodemon -L client/bin/www"
+  volumes:
+    - "./client:/src/client"
+  ports:
+    - "80:3000"
+  command: "nodemon -L client/bin/www"
