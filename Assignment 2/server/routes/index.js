@@ -4,12 +4,6 @@ const router = require('express').Router();
 const sentiment = require('sentiment');
 const models = require('../models');
 
-router.get('/', (req, res) => {
-  models.Tweet.findAndCountAll().then(tweets => {
-    res.json({ status: true, stats: { tweets: tweets.count } });
-  });
-});
-
 router.post('/tweet', (req, res) => {
   const tweet = {};
   tweet.text = req.body.tweet;
@@ -32,11 +26,3 @@ router.post('/tweet', (req, res) => {
 });
 
 module.exports = router;
-
-
-
-router.get('/testing', function (req, res) {
-  res.render('index', { data: true })
-});
-
-router.get('/testing', (req, res) => res.render('index', { data: true }));

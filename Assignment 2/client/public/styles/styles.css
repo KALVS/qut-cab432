@@ -1,0 +1,43 @@
+@font-face { font-family:trajan; src: url('images/TrajanPro-Bold.otf'); } 
+@font-face { font-family:trajanreg; src: url('images/TrajanPro-Regular.otf'); } 
+
+body {
+    background-color: #2B3033;
+    color: aliceblue;
+}
+h1{
+    font-family: trajan;
+    font-size: 50pt
+}
+#header{
+    background-image: url("/images/hoganority2.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #191a1a;
+    color: aliceblue;
+    height: 400px;
+}
+.spacer{
+    height: 250px;
+}
+#header p {
+    font-family: trajanreg;
+    font-size: 10pt;
+}
+.name {
+    font-size: 14pt
+}
+.footer{
+    color: aliceblue;
+    background-color: #191a1a;
+}
+.progress{
+    background: rgba(255, 99, 99, 1); 
+    border: 0px solid rgba(255, 255, 255, 1); 
+    border-radius: 4px; 
+    height: 50px;}
+
+.progress-bar-custom{
+    background: rgba(97, 181, 255, 1);
+}
+

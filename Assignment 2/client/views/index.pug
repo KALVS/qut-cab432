@@ -1,0 +1,65 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title Hoganority Report
+    script(src='https://code.jquery.com/jquery-3.1.1.min.js')
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='scripts/wordcloud.js')
+    script(src='scripts/scripts.js')
+    link(href='styles/styles.css', rel='stylesheet')
+  body
+    script.
+      $(document).ready(function(){
+        $("#figGraph").css("width", "#{wordVsWord}" + "%");
+      });
+    #header.col-md-12.text-center(style='margin-bottom:50px')
+      .spacer
+      div
+        h1 HOGANORITY REPORT
+        p
+          | AN
+          span.name ASHLEY MCVEIGH
+          |  AND
+          span.name TYLOR STEWART
+          |  FILM
+    #page_container.container
+      .col-md-12.text-center
+        .row
+          img(src='images/world-sentiment.png')
+        .row
+          img(src='images/defcon'+defcon+'.png')
+        .row(style='margin-bottom:50px')
+          p
+            | We are currently at defcon #{defcon} with an average sentiment of #{globalSentiment}
+          p
+            | This is the general sentiment of the entire world, this information is generated from a feed of all tweets
+      .col-md-12.text-center
+        .row
+          img(src='images/Twitter-Word-Cloud.png')
+        .row(style='margin-bottom:50px')
+          .col-md-3.text-center
+          .col-md-6.text-center
+            p This is a word cloud of the top (number) used words in those same tweets
+          .col-md-3.text-center
+        .row
+          .col-md-12
+            canvas#my_canvas(height='600px', width='700px')
+      .col-md-12.text-center
+        .row
+          img(src='images/Litterally-figerativly2.png')
+        .row
+          .col-md-1.text-center
+          .col-md-10.text-center
+            .progress
+              #figGraph.progress-bar.progress-bar-custom(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%;')
+          .col-md-1.text-center
+        .row(style='margin-bottom:50px')
+          .col-md-1.text-center
+          .col-md-10.text-center
+            p
+              | This represents the usage of the word Literally versus the word Figurativley based on those same tweets
+          .col-md-1.text-center
+    #footer.footer.text-center
+      img(src='images/producers.png')

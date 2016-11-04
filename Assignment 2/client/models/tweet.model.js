@@ -3,6 +3,6 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('Tweet', {
     tweet: DataTypes.STRING,
-    sentiment: DataTypes.NUMBER
+    sentiment: DataTypes.INTEGER
   });
 };
