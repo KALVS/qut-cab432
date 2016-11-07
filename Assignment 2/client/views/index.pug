@@ -12,8 +12,12 @@ html
   body
     script.
       $(document).ready(function(){
+        var list = !{wordCloud}
+        WordCloud($('#my_canvas')[0], {list: list, backgroundColor: "aliceblue", minSize:"6"});
+
         $("#figGraph").css("width", "#{wordVsWord}" + "%");
       });
+
     #header.col-md-12.text-center(style='margin-bottom:50px')
       .spacer
       div
@@ -45,7 +49,7 @@ html
           .col-md-3.text-center
         .row
           .col-md-12
-            canvas#my_canvas(height='600px', width='700px')
+            canvas#my_canvas(height='600px', width='600px', style='margin-bottom:50px')
       .col-md-12.text-center
         .row
           img(src='images/Litterally-figerativly2.png')
